@@ -40,16 +40,16 @@ namespace ImGui
 	{
 		constexpr BezierWeights() : x_(), y_(), z_(), w_()
 		{
-			for (int i = 1; i <= n; ++i)
-			{
-				float t = (float)i / (float)(n + 1);
-				float u = 1.0f - t;
-
-				x_[i - 1] = u * u * u;
-				y_[i - 1] = 3 * u * u * t;
-				z_[i - 1] = 3 * u * t * t;
-				w_[i - 1] = t * t * t;
-			}
+//            for (int i = 1; i <= n; ++i)
+//            {
+//                float t = (float)i / (float)(n + 1);
+//                float u = 1.0f - t;
+//
+//                x_[i - 1] = u * u * u;
+//                y_[i - 1] = 3 * u * u * t;
+//                z_[i - 1] = 3 * u * t * t;
+//                w_[i - 1] = t * t * t;
+//            }
 		}
 
 		float x_[n];
@@ -60,6 +60,8 @@ namespace ImGui
 
 	static constexpr auto bezier_weights_ = BezierWeights<16>();
 
+
+    //DEFINE NODE TYPES
 	////////////////////////////////////////////////////////////////////////////////
     static const std::vector<ImGui::NodeType> node_types =
     {
@@ -80,7 +82,26 @@ namespace ImGui
                 { std::string("Host Address"), std::string("sw"), std::string("s") },
                 { std::string("data"), std::string("w"), std::string("f") },
             }
+        },
+
+        {
+            { std::string("CHANNEL ") },
+
+            {
+                { std::string("IN"), std::string("ew"), std::string("f") },
+                { std::string("OUT"), std::string("er"), std::string("f") },
+            }
+        },
+        {
+            { std::string("MIXER") },
+
+            {
+                { std::string("channel1"), std::string("ew"), std::string("f") },
+                { std::string("channel2"), std::string("ew"), std::string("f") },
+                { std::string("mixer"), std::string("ew"), std::string("f") },
+            }
         }
+
     };
 
 
@@ -99,7 +120,8 @@ namespace ImGui
             ImVec2 position_out;        // position ofoutput pad, in case pad is an output pad, as a convenience
             std::string name;           // human readable name
             //TODO: std::string widget_type   // type of widget for the gui
-            std::string access;         // access string, ie r,w,e || s, this also determines whether it is an output(r) or input(w) pad!
+            std::string access;         // access string, ie r,w,e
+            // || s, this also determines whether it is an output(r) or input(w) pad!
             std::string format;         // to determine data type
             Node* owner;                // owner of the pad
             //TODO: std::set<NodePad*> subscriptions; // list of subscriptions (only used  for output pads)

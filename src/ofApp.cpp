@@ -5,16 +5,29 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     ofSetLogLevel(OF_LOG_VERBOSE);
+    ofSetFrameRate(25);
 
     //required call
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO();
     io.MouseDrawCursor = false;
     io.Fonts->AddFontDefault();
-    io.Fonts->AddFontFromFileTTF("/home/arnaud/src/imgui/misc/fonts/Roboto-Medium.ttf", 16.0f);
+//    io.Fonts->AddFontFromFileTTF("/home/arnaud/src/imgui/misc/fonts/Roboto-Medium.ttf", 16.0f);
+    io.Fonts->AddFontFromFileTTF("/Users/manumolina/Documents/of_v0.10.1_osx_release/apps/myApps/ofNodeEditor/bin/data/consola.ttf", 16.0f);
+
+    //-
+
     gui.setup();
     gui.begin();
+
+
+    //populate
     nodes.CreateNodeFromType(ImVec2(400,140), ImGui::node_types[0]);
+    nodes.CreateNodeFromType(ImVec2(400,140), ImGui::node_types[0]);
+    nodes.CreateNodeFromType(ImVec2(400,440), ImGui::node_types[2]);
+
+    //-
+
     gui.end();
 }
 
@@ -22,6 +35,7 @@ void ofApp::setup(){
 void ofApp::update(){
 }
 
+//--------------------------------------------------------------
 void ofApp::doGui() {
 
     gui.begin();
@@ -39,17 +53,22 @@ void ofApp::doGui() {
         mainmenu_height = ImGui::GetWindowSize().y;
         ImGui::EndMainMenuBar();
     }
+
     ImGui::SetNextWindowPos(ImVec2( 0, mainmenu_height ));
     ImGui::SetNextWindowSize(ImVec2( ofGetWidth()-351, ofGetHeight()-mainmenu_height));
+
     ImGui::Begin("clientspanel", NULL,  ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_HorizontalScrollbar | ImGuiWindowFlags_NoBringToFrontOnFocus);
     nodes.ProcessNodes();
     ImGui::End();
+
     gui.end();
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
     doGui();
+
+
 }
 
 //--------------------------------------------------------------
