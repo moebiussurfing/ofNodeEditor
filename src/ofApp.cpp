@@ -12,7 +12,9 @@ void ofApp::setup(){
     ImGuiIO& io = ImGui::GetIO();
     io.MouseDrawCursor = false;
     io.Fonts->AddFontDefault();
-//    io.Fonts->AddFontFromFileTTF("/home/arnaud/src/imgui/misc/fonts/Roboto-Medium.ttf", 16.0f);
+
+//    ofToDataPath();
+//    ofToDataPath("consola.ttf")
     io.Fonts->AddFontFromFileTTF("/Users/manumolina/Documents/of_v0.10.1_osx_release/apps/myApps/ofNodeEditor/bin/data/consola.ttf", 16.0f);
 
     //-
@@ -39,26 +41,32 @@ void ofApp::update(){
 void ofApp::doGui() {
 
     gui.begin();
-    // Create a main menu bar
+
+//    // Create a main menu bar
     float mainmenu_height = 0;
-    if (ImGui::BeginMainMenuBar())
-    {
-        if (ImGui::BeginMenu("File"))
-        {
-            if (ImGui::MenuItem("Open ...", "Ctrl+O")) {  }
-            if (ImGui::MenuItem("Save ...", "Ctrl+S"))   { }
-            if (ImGui::MenuItem("Exit", "Ctrl+W"))  { ofExit(0); }
-            ImGui::EndMenu();
-        }
-        mainmenu_height = ImGui::GetWindowSize().y;
-        ImGui::EndMainMenuBar();
-    }
+//    if (ImGui::BeginMainMenuBar())
+//    {
+//        if (ImGui::BeginMenu("File"))
+//        {
+//            if (ImGui::MenuItem("Open ...", "Ctrl+O")) {  }
+//            if (ImGui::MenuItem("Save ...", "Ctrl+S"))   { }
+//            if (ImGui::MenuItem("Exit", "Ctrl+W"))  { ofExit(0); }
+//            ImGui::EndMenu();
+//        }
+//        mainmenu_height = ImGui::GetWindowSize().y;
+//        ImGui::EndMainMenuBar();
+//    }
 
     ImGui::SetNextWindowPos(ImVec2( 0, mainmenu_height ));
     ImGui::SetNextWindowSize(ImVec2( ofGetWidth()-351, ofGetHeight()-mainmenu_height));
 
-    ImGui::Begin("clientspanel", NULL,  ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_HorizontalScrollbar | ImGuiWindowFlags_NoBringToFrontOnFocus);
+    ImGui::Begin("clientspanel", NULL,
+                 ImGuiWindowFlags_NoTitleBar |
+                 ImGuiWindowFlags_NoMove |
+                 ImGuiWindowFlags_HorizontalScrollbar | ImGuiWindowFlags_NoBringToFrontOnFocus);
+
     nodes.ProcessNodes();
+
     ImGui::End();
 
     gui.end();
